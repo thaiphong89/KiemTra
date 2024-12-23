@@ -1,0 +1,75 @@
+﻿@model KiemTra.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center my-4">Thêm Sinh Viên Mới</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4 shadow-sm">
+            <h4 class="card-title text-center mb-4">Thông tin Sinh Viên</h4>
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="MaSV" class="form-label">Mã Sinh Viên</label>
+                    <input asp-for="MaSV" class="form-control" placeholder="Nhập mã sinh viên" />
+                    <span asp-validation-for="MaSV" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="HoTen" class="form-label">Họ và Tên</label>
+                    <input asp-for="HoTen" class="form-control" placeholder="Nhập họ tên" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="GioiTinh" class="form-label">Giới Tính</label>
+                    <div>
+                        <label class="form-check-label">
+                            <input type="radio" asp-for="GioiTinh" value="true" class="form-check-input" /> Nam
+                        </label>
+                        <label class="form-check-label ms-3">
+                            <input type="radio" asp-for="GioiTinh" value="false" class="form-check-input" /> Nữ
+                        </label>
+                    </div>
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NgaySinh" class="form-label">Ngày Sinh</label>
+                    <input asp-for="NgaySinh" class="form-control" type="date" />
+                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label">Chọn Hình Ảnh</label>
+                    <input type="file" name="ImageFile" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MaNganh" class="form-label">Mã Ngành</label>
+                    <select asp-for="MaNganh" class="form-select" asp-items="ViewBag.MaNganh">
+                        <option value="">Chọn ngành</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-100">Thêm Mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<KiemTra.Models.SinhVien>
+
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Danh sách Sinh Viên</h1>
+
+    <!-- Nút Thêm Mới -->
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-action="Create" class="btn btn-success btn-lg">
+            <i class="bi bi-person-plus"></i> Thêm mới sinh viên
+        </a>
+    </div>
+
+    <!-- Bảng Danh Sách Sinh Viên -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Mã SV</th>
+                    <th scope="col">Họ Tên</th>
+                    <th scope="col">Giới Tính</th>
+                    <th scope="col">Ngày Sinh</th>
+                    <th scope="col">Hình Ảnh</th>
+                    <th scope="col">Mã Ngành</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.MaSV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                        <td>@(item.GioiTinh ? "Nam" : "Nữ")</td>
+                        <td>@item.NgaySinh.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Hinh))
+                            {
+                                <img src="~/images/@item.Hinh" alt="@item.HoTen" class="img-thumbnail" style="max-width: 80px; max-height: 80px;" />
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.MaNganh)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.MaSV" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Sửa</a>
+                            <a asp-action="Details" asp-route-id="@item.MaSV" class="btn btn-info btn-sm"><i class="bi bi-info-circle"></i> Chi tiết</a>
+                            <a asp-action="Delete" asp-route-id="@item.MaSV" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+}

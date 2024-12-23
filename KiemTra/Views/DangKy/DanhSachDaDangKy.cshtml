@@ -1,0 +1,75 @@
+﻿@model IEnumerable<KiemTra.Models.DangKy>
+
+@{
+    ViewData["Title"] = "Danh sách học phần đã đăng ký";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@foreach (var dangKy in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="card-title">Đăng ký ngày: @dangKy.NgayDK.ToString("dd/MM/yyyy HH:mm")</h5>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mã HP</th>
+                        <th>Tên học phần</th>
+                        <th>Số tín chỉ</th>
+                        <th>Số lượng dự kiến</th>
+                        <th>Số lượng đã đăng ký</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var chiTiet in dangKy.ChiTietDangKys)
+                    {
+                        <tr>
+                            <td>@chiTiet.HocPhan.MaHP</td>
+                            <td>@chiTiet.HocPhan.TenHP</td>
+                            <td>@chiTiet.HocPhan.SoTinChi</td>
+                            <td>@chiTiet.HocPhan.SoLuongDuKien</td>
+                            <td>@chiTiet.HocPhan.SoLuongDaDangKy</td>
+                            <td>
+                                <form asp-action="XoaHocPhan" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="maDK" value="@dangKy.MaDK" />
+                                    <input type="hidden" name="maHP" value="@chiTiet.HocPhan.MaHP" />
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Bạn có chắc chắn muốn hủy đăng ký học phần này?')">
+                                        Xóa
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@if (!Model.Any() || !Model.FirstOrDefault().ChiTietDangKys.Any())
+{
+    <div class="alert alert-info">
+        Bạn chưa đăng ký học phần nào.
+    </div>
+}
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Quay lại đăng ký học phần</a>
+    <form asp-action="ThongTinDangKy" method="post" style="display: inline;">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-success">Xác nhận đăng ký</button>
+    </form>
+</div>

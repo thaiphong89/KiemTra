@@ -1,0 +1,35 @@
+﻿@model KiemTra.Models.DangKy
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="mb-4">Create Registration</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NgayDK" class="form-label"></label>
+                <input asp-for="NgayDK" class="form-control" />
+                <span asp-validation-for="NgayDK" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="MaSV" class="form-label"></label>
+                <select asp-for="MaSV" class="form-select" asp-items="ViewBag.MaSV"></select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

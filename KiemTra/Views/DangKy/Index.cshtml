@@ -1,0 +1,64 @@
+﻿@model IEnumerable<KiemTra.Models.HocPhan>
+
+@{
+    ViewData["Title"] = "Đăng ký học phần";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MaHP)</th>
+            <th>@Html.DisplayNameFor(model => model.TenHP)</th>
+            <th>@Html.DisplayNameFor(model => model.SoTinChi)</th>
+            <th>@Html.DisplayNameFor(model => model.SoLuongDuKien)</th>
+            <th>@Html.DisplayNameFor(model => model.SoLuongDaDangKy)</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaHP)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenHP)</td>
+                <td>@Html.DisplayFor(modelItem => item.SoTinChi)</td>
+                <td>@Html.DisplayFor(modelItem => item.SoLuongDuKien)</td>
+                <td>@Html.DisplayFor(modelItem => item.SoLuongDaDangKy)</td>
+                <td>
+                    @if (item.SoLuongDaDangKy < item.SoLuongDuKien)
+                    {
+                        <form asp-action="DangKyHocPhan" method="post" style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="maHP" value="@item.MaHP" />
+                            <button type="submit" class="btn btn-primary btn-sm">Đăng ký</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary btn-sm" disabled>Hết slot</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="DanhSachDaDangKy" class="btn btn-info">Xem danh sách đã đăng ký</a>
+</div>

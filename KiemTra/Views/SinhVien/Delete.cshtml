@@ -1,0 +1,61 @@
+﻿@model KiemTra.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Xóa sinh viên";
+}
+
+<h1>Xóa sinh viên</h1>
+
+<h3>Bạn có chắc chắn muốn xóa sinh viên này?</h3>
+<div>
+    <h4>Thông tin sinh viên</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaSV)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaSV)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.GioiTinh ? "Nam" : "Nữ")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaNganh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaNganh)
+        </dd>
+    </dl>
+
+    @if (!string.IsNullOrEmpty(Model.Hinh))
+    {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hinh)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.Hinh" alt="@Model.HoTen" style="max-width: 300px; max-height: 300px;" />
+        </dd>
+    }
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaSV" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay lại danh sách</a>
+    </form>
+</div>

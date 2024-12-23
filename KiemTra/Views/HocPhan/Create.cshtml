@@ -1,0 +1,70 @@
+﻿@model KiemTra.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create SinhVien</h1>
+
+<h4>SinhVien</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="MaSV" class="control-label"></label>
+                <input asp-for="MaSV" class="form-control" />
+                <span asp-validation-for="MaSV" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HoTen" class="control-label"></label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GioiTinh" class="control-label"></label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" asp-for="GioiTinh" value="true" /> Nam
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" asp-for="GioiTinh" value="false" /> Nữ
+                    </label>
+                </div>
+                <span asp-validation-for="GioiTinh" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NgaySinh" class="control-label"></label>
+                <input asp-for="NgaySinh" class="form-control" type="date" />
+                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input type="file" name="ImageFile" class="form-control-file" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaNganh" class="control-label"></label>
+                <select asp-for="MaNganh" class="form-control" asp-items="ViewBag.MaNganh"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @await Html.RenderPartialAsync("_ValidationScriptsPartial")
+}

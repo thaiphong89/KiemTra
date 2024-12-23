@@ -1,0 +1,42 @@
+﻿@model KiemTra.Models.HocPhan
+
+@{
+    ViewData["Title"] = "Chi tiết học phần";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaHP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaHP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TenHP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TenHP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoTinChi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoTinChi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuongDuKien)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoLuongDuKien)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaHP" class="btn btn-warning">Sửa</a> |
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>
+

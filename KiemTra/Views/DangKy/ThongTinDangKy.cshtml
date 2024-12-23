@@ -1,0 +1,83 @@
+﻿@model KiemTra.Models.DangKy
+
+@{
+    ViewData["Title"] = "Thông tin đăng ký học phần";
+    var sinhVien = ViewBag.SinhVien as KiemTra.Models.SinhVien;
+    var tongSoHocPhan = Model.ChiTietDangKys.Count;
+    var tongSoTinChi = Model.ChiTietDangKys.Sum(m => m.HocPhan.SoTinChi);
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Thông tin đăng ký học phần</h2>
+
+    <div class="table-responsive mb-4">
+        <table class="table table-striped table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>MaHP</th>
+                    <th>Tên Học Phần</th>
+                    <th>Số Tín Chỉ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ChiTietDangKys)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.HocPhan.MaHP)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HocPhan.TenHP)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HocPhan.SoTinChi)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end mb-3">
+        <span class="text-danger">
+            Số lượng học phần: @tongSoHocPhan
+        </span>
+        <br />
+        <span class="text-danger">
+            Tổng số tín chỉ: @tongSoTinChi
+        </span>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Thông tin Đăng kí</h5>
+            <div class="row mb-2">
+                <div class="col-md-3">Mã số sinh viên:</div>
+                <div class="col-md-9">@sinhVien.MaSV</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Họ Tên Sinh viên:</div>
+                <div class="col-md-9">@sinhVien.HoTen</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Giới tính:</div>
+                <div class="col-md-9">@(sinhVien.GioiTinh ? "Nam" : "Nữ")</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Ngày sinh:</div>
+                <div class="col-md-9">@sinhVien.NgaySinh.ToString("dd/MM/yyyy")</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Ngành học:</div>
+                <div class="col-md-9">@sinhVien.NganhHoc?.TenNganh</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Ngày Đăng Kí:</div>
+                <div class="col-md-9">@Model.NgayDK.ToString("dd/MM/yyyy HH:mm:ss")</div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a asp-action="DanhSachDaDangKy" class="btn btn-secondary">Quay lại danh sách đã đăng ký</a>
+                <form asp-action="LuuDangKy" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
